@@ -1,12 +1,12 @@
 {
-  "name": "sakai-react",
+  "name": "escola-web",
   "version": "10.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "format": "prettier --write \"{app,demo,layout,types}/**/*.{js,ts,tsx,d.ts}\"",
+    "format": "prettier --write \"{app,layout,types}/**/*.{js,ts,tsx,d.ts}\"",
     "lint": "next lint"
   },
   "dependencies": {
