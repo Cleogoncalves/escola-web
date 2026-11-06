@@ -12,10 +12,9 @@ const AppMenu = () => {
             items: [{ label: 'Início', icon: 'pi pi-fw pi-home', to: '/' },
                 { label: 'Alunos', icon: 'pi pi-fw pi-graduation-cap', to: '/alunos' },
                 { label: 'Cursos', icon: 'pi pi-fw pi-book', to: '/cursos' },
-                { label: 'disciplinas', icon: 'pi pi-fw pi-lists', to: '/disciplinas' },
+                { label: 'Disciplinas', icon: 'pi pi-fw pi-list', to: '/disciplinas' },
                 { label: 'Professores', icon: 'pi pi-fw pi-id-card', to: '/professores' },
-                { label: 'Turmas', icon: 'pi pi-fw pi-users', to: '/ turmas' }
-
+                { label: 'Turmas', icon: 'pi pi-fw pi-users', to: '/turmas' },
             ]
         }
     ];
