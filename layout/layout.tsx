@@ -3,11 +3,12 @@
 
 import { useRouter } from 'next/navigation'
 import { useEventListener, useMountEffect, useUnmountEffect } from 'primereact/hooks'
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { classNames } from 'primereact/utils'
 import AppFooter from './AppFooter'
 import AppSidebar from './AppSidebar'
 import AppTopbar from './AppTopbar'
+import LayoutSkeleton from './LayoutSkeleton'
 import { LayoutContext } from './context/layoutcontext'
 import { PrimeReactContext } from 'primereact/api'
 import { ChildContainerProps, LayoutState, AppTopbarRef } from '@/types'
@@ -16,8 +17,37 @@ import { usePathname, useSearchParams } from 'next/navigation'
 const Layout = ({ children }: ChildContainerProps) => {
     const { layoutConfig, layoutState, setLayoutState } = useContext(LayoutContext)
     const { setRipple } = useContext(PrimeReactContext)
+    const [themeLoaded, setThemeLoaded] = useState(false)
     const topbarRef = useRef<AppTopbarRef>(null)
     const sidebarRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        setThemeLoaded(false)
+        const themeLink = document.getElementById('theme-css') as HTMLLinkElement | null
+
+        if (!themeLink) {
+            setThemeLoaded(true)
+            return
+        }
+
+        const handleThemeLoad = () => setThemeLoaded(true)
+        const handleThemeError = () => {
+            console.error(`Não foi possível carregar o tema "${themeLink.href}"`)
+            setThemeLoaded(true)
+        }
+
+        if (themeLink.sheet) {
+            handleThemeLoad()
+        } else {
+            themeLink.addEventListener('load', handleThemeLoad)
+            themeLink.addEventListener('error', handleThemeError)
+        }
+
+        return () => {
+            themeLink.removeEventListener('load', handleThemeLoad)
+            themeLink.removeEventListener('error', handleThemeError)
+        }
+    }, [layoutConfig.theme])
     const [bindMenuOutsideClickListener, unbindMenuOutsideClickListener] = useEventListener({
         type: 'click',
         listener: (event) => {
@@ -126,17 +156,21 @@ const Layout = ({ children }: ChildContainerProps) => {
 
     return (
         <React.Fragment>
-            <div className={containerClass}>
-                <AppTopbar ref={topbarRef} />
-                <div ref={sidebarRef} className="layout-sidebar">
-                    <AppSidebar />
+            {themeLoaded ? (
+                <div className={containerClass}>
+                    <AppTopbar ref={topbarRef} />
+                    <div ref={sidebarRef} className="layout-sidebar">
+                        <AppSidebar />
+                    </div>
+                    <div className="layout-main-container">
+                        <div className="layout-main">{children}</div>
+                        <AppFooter />
+                    </div>
+                    <div className="layout-mask"></div>
                 </div>
-                <div className="layout-main-container">
-                    <div className="layout-main">{children}</div>
-                    <AppFooter />
-                </div>
-                <div className="layout-mask"></div>
-            </div>
+            ) : (
+                <LayoutSkeleton />
+            )}
         </React.Fragment>
     )
 }
