@@ -1,26 +1,26 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { classNames } from 'primereact/utils';
-import { OverlayPanel } from 'primereact/overlaypanel';
-import { Button } from 'primereact/button';
-import React, { forwardRef, useContext, useImperativeHandle, useRef } from 'react';
-import { AppTopbarRef } from '@/types';
-import { LayoutContext } from './context/layoutcontext';
-import AppConfig from './AppConfig';
+import Link from 'next/link'
+import { classNames } from 'primereact/utils'
+import { OverlayPanel } from 'primereact/overlaypanel'
+import { Button } from 'primereact/button'
+import React, { forwardRef, useContext, useImperativeHandle, useRef } from 'react'
+import { AppTopbarRef } from '@/types'
+import { LayoutContext } from './context/layoutcontext'
+import AppConfig from './AppConfig'
 
 const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
-    const { layoutState, onMenuToggle, showProfileSidebar } = useContext(LayoutContext);
-    const menubuttonRef = useRef<HTMLButtonElement>(null);
-    const topbarmenuRef = useRef<HTMLDivElement>(null);
-    const topbarmenubuttonRef = useRef<HTMLButtonElement>(null);
-    const configPanelRef = useRef<OverlayPanel>(null);
+    const { layoutState, onMenuToggle, showProfileSidebar } = useContext(LayoutContext)
+    const menubuttonRef = useRef<HTMLButtonElement>(null)
+    const topbarmenuRef = useRef<HTMLDivElement>(null)
+    const topbarmenubuttonRef = useRef<HTMLButtonElement>(null)
+    const configPanelRef = useRef<OverlayPanel>(null)
 
     useImperativeHandle(ref, () => ({
         menubutton: menubuttonRef.current,
         topbarmenu: topbarmenuRef.current,
         topbarmenubutton: topbarmenubuttonRef.current
-    }));
+    }))
 
     return (
         <div className="layout-topbar">
@@ -49,8 +49,22 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
                 onClick={showProfileSidebar}
             />
 
-            <div ref={topbarmenuRef} className={classNames('layout-topbar-menu', { 'layout-topbar-menu-mobile-active': layoutState.profileSidebarVisible })}>
-                <Button type="button" icon="pi pi-user" rounded aria-label="Perfil" size="large" tooltip="Perfil" tooltipOptions={{ position: 'bottom' }} className="layout-topbar-button" />
+            <div
+                ref={topbarmenuRef}
+                className={classNames('layout-topbar-menu', {
+                    'layout-topbar-menu-mobile-active': layoutState.profileSidebarVisible
+                })}
+            >
+                <Button
+                    type="button"
+                    icon="pi pi-user"
+                    rounded
+                    aria-label="Perfil"
+                    size="large"
+                    tooltip="Perfil"
+                    tooltipOptions={{ position: 'bottom' }}
+                    className="layout-topbar-button"
+                />
                 <Button
                     type="button"
                     icon="pi pi-cog"
@@ -67,9 +81,9 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
                 </OverlayPanel>
             </div>
         </div>
-    );
-});
+    )
+})
 
-AppTopbar.displayName = 'AppTopbar';
+AppTopbar.displayName = 'AppTopbar'
 
-export default AppTopbar;
+export default AppTopbar

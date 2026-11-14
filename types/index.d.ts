@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from 'react'
 import {
     AppBreadcrumbProps,
     Breadcrumb,
@@ -14,11 +14,11 @@ import {
     AppTopbarRef,
     AppMenuItemProps,
     AppMenuItem
-} from './layout';
+} from './layout'
 
 type ChildContainerProps = {
-    children: ReactNode;
-};
+    children: ReactNode
+}
 
 export type {
     AppBreadcrumbProps,
@@ -36,4 +36,4 @@ export type {
     AppMenuItemProps,
     ChildContainerProps,
     AppMenuItem
-};
+}
