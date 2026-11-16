@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { PrimeReactContext } from 'primereact/api';
-import { Button } from 'primereact/button';
-import { classNames } from 'primereact/utils';
-import React, { useContext, useEffect, useState } from 'react';
-import { LayoutConfig } from '@/types';
-import { LayoutContext } from './context/layoutcontext';
+import { PrimeReactContext } from 'primereact/api'
+import { Button } from 'primereact/button'
+import { classNames } from 'primereact/utils'
+import React, { useContext, useEffect, useState } from 'react'
+import { LayoutConfig } from '@/types'
+import { LayoutContext } from './context/layoutcontext'
 
 const lightThemes = [
     { name: 'lara-light-indigo', label: 'Indigo', image: '/layout/images/themes/lara-light-indigo.png' },
@@ -16,7 +16,7 @@ const lightThemes = [
     { name: 'lara-light-cyan', label: 'Cyan', color: '#06b6d4' },
     { name: 'lara-light-amber', label: 'Amber', color: '#f59e0b' },
     { name: 'lara-light-pink', label: 'Pink', color: '#ec4899' }
-];
+]
 
 const darkThemes = [
     { name: 'lara-dark-indigo', label: 'Indigo', image: '/layout/images/themes/lara-dark-indigo.png' },
@@ -27,35 +27,35 @@ const darkThemes = [
     { name: 'lara-dark-cyan', label: 'Cyan', color: '#06b6d4' },
     { name: 'lara-dark-amber', label: 'Amber', color: '#f59e0b' },
     { name: 'lara-dark-pink', label: 'Pink', color: '#ec4899' }
-];
+]
 
 const AppConfig = () => {
-    const [scales] = useState([12, 13, 14, 15, 16]);
-    const { layoutConfig, setLayoutConfig } = useContext(LayoutContext);
-    const { changeTheme } = useContext(PrimeReactContext);
+    const [scales] = useState([12, 13, 14, 15, 16])
+    const { layoutConfig, setLayoutConfig } = useContext(LayoutContext)
+    const { changeTheme } = useContext(PrimeReactContext)
 
     const _changeTheme = (theme: string, colorScheme: string) => {
         changeTheme?.(layoutConfig.theme, theme, 'theme-css', () => {
-            setLayoutConfig((prevState: LayoutConfig) => ({ ...prevState, theme, colorScheme }));
-        });
-    };
+            setLayoutConfig((prevState: LayoutConfig) => ({ ...prevState, theme, colorScheme }))
+        })
+    }
 
     const decrementScale = () => {
-        setLayoutConfig((prevState: LayoutConfig) => ({ ...prevState, scale: prevState.scale - 1 }));
-    };
+        setLayoutConfig((prevState: LayoutConfig) => ({ ...prevState, scale: prevState.scale - 1 }))
+    }
 
     const incrementScale = () => {
-        setLayoutConfig((prevState: LayoutConfig) => ({ ...prevState, scale: prevState.scale + 1 }));
-    };
+        setLayoutConfig((prevState: LayoutConfig) => ({ ...prevState, scale: prevState.scale + 1 }))
+    }
 
     const applyScale = () => {
-        document.documentElement.style.fontSize = layoutConfig.scale + 'px';
-    };
+        document.documentElement.style.fontSize = layoutConfig.scale + 'px'
+    }
 
     useEffect(() => {
-        applyScale();
+        applyScale()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [layoutConfig.scale]);
+    }, [layoutConfig.scale])
 
     return (
         <div className="p-2">
@@ -98,10 +98,13 @@ const AppConfig = () => {
                     <div className="col-3 flex justify-content-center" key={item.name}>
                         <button
                             type="button"
-                            className={classNames('p-link w-2rem h-2rem border-round border-2 flex align-items-center justify-content-center cursor-pointer', {
-                                'border-primary shadow-2': layoutConfig.theme === item.name,
-                                'border-transparent surface-hover': layoutConfig.theme !== item.name
-                            })}
+                            className={classNames(
+                                'p-link w-2rem h-2rem border-round border-2 flex align-items-center justify-content-center cursor-pointer',
+                                {
+                                    'border-primary shadow-2': layoutConfig.theme === item.name,
+                                    'border-transparent surface-hover': layoutConfig.theme !== item.name
+                                }
+                            )}
                             onClick={() => _changeTheme(item.name, 'light')}
                             title={item.name}
                         >
@@ -121,10 +124,13 @@ const AppConfig = () => {
                     <div className="col-3 flex justify-content-center" key={item.name}>
                         <button
                             type="button"
-                            className={classNames('p-link w-2rem h-2rem border-round border-2 flex align-items-center justify-content-center cursor-pointer', {
-                                'border-primary shadow-2': layoutConfig.theme === item.name,
-                                'border-transparent surface-hover': layoutConfig.theme !== item.name
-                            })}
+                            className={classNames(
+                                'p-link w-2rem h-2rem border-round border-2 flex align-items-center justify-content-center cursor-pointer',
+                                {
+                                    'border-primary shadow-2': layoutConfig.theme === item.name,
+                                    'border-transparent surface-hover': layoutConfig.theme !== item.name
+                                }
+                            )}
                             onClick={() => _changeTheme(item.name, 'dark')}
                             title={item.name}
                         >
@@ -138,7 +144,7 @@ const AppConfig = () => {
                 ))}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default AppConfig;
+export default AppConfig
